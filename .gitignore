@@ -1,0 +1,33 @@
+## .NET build output
+bin/
+obj/
+
+## Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Test results
+TestResults/
+coverage/
+
+## Local databases
+*.db
+*.mdf
+*.ldf
+
+## Local environment overrides (secrets belong in user-secrets)
+appsettings.*.local.json
+.env
+
+## Uploaded resumes (keep the folder, ignore the files)
+src/MirPortfolio.Web/wwwroot/resume/*
+!src/MirPortfolio.Web/wwwroot/resume/.gitkeep
+
+## OS files
+Thumbs.db
+.DS_Store

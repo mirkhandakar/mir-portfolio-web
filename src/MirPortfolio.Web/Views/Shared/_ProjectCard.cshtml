@@ -1,0 +1,44 @@
+@model Project
+@{
+    var tags = Model.TechTags?
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        ?? Array.Empty<string>();
+}
+<article class="project-card">
+    <div class="project-card__media">
+        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Title preview" />
+        }
+        else
+        {
+            <span aria-hidden="true">@Model.Title</span>
+        }
+    </div>
+    <div class="project-card__body">
+        <h3 class="project-card__title">
+            <a asp-controller="Projects" asp-action="Details" asp-route-slug="@Model.Slug">@Model.Title</a>
+        </h3>
+        <p class="project-card__summary">@Model.Summary</p>
+        @if (tags.Length > 0)
+        {
+            <ul class="tag-list" aria-label="Technologies used">
+                @foreach (var tag in tags)
+                {
+                    <li>@tag</li>
+                }
+            </ul>
+        }
+        <div class="project-card__links">
+            <a asp-controller="Projects" asp-action="Details" asp-route-slug="@Model.Slug">Case study &rarr;</a>
+            @if (!string.IsNullOrWhiteSpace(Model.RepoUrl))
+            {
+                <a href="@Model.RepoUrl" target="_blank" rel="noopener noreferrer">Source</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.LiveUrl))
+            {
+                <a href="@Model.LiveUrl" target="_blank" rel="noopener noreferrer">Live</a>
+            }
+        </div>
+    </div>
+</article>

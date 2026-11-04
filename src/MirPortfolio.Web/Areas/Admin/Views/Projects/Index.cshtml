@@ -1,0 +1,77 @@
+@model IReadOnlyList<Project>
+
+<div class="admin-card">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">All projects</h2>
+        <a class="btn btn-sm btn-brand" asp-area="Admin" asp-controller="Projects" asp-action="Create">
+            New project
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="admin-empty">
+            <h2>No projects yet</h2>
+            <p class="mb-3">Add your first project to start building the public portfolio.</p>
+            <a class="btn btn-brand" asp-area="Admin" asp-controller="Projects" asp-action="Create">
+                Create a project
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table admin-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col">Featured</th>
+                        <th scope="col">Order</th>
+                        <th scope="col">Updated</th>
+                        <th scope="col"><span class="visually-hidden">Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var project in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="admin-table__primary">@project.Title</span>
+                                <span class="admin-table__muted">/projects/@project.Slug</span>
+                            </td>
+                            <td>
+                                @if (project.IsFeatured)
+                                {
+                                    <span class="admin-badge admin-badge--on">Featured</span>
+                                }
+                                else
+                                {
+                                    <span class="admin-badge">Standard</span>
+                                }
+                            </td>
+                            <td>@project.DisplayOrder</td>
+                            <td>@project.UpdatedAt.ToString("MMM d, yyyy")</td>
+                            <td>
+                                <div class="admin-actions">
+                                    <a class="btn btn-sm btn-outline-secondary" asp-area="" asp-controller="Projects"
+                                       asp-action="Details" asp-route-slug="@project.Slug"
+                                       target="_blank" rel="noopener noreferrer">
+                                        View
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-brand" asp-area="Admin"
+                                       asp-controller="Projects" asp-action="Edit" asp-route-id="@project.Id">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger" asp-area="Admin"
+                                       asp-controller="Projects" asp-action="Delete" asp-route-id="@project.Id">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

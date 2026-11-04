@@ -1,0 +1,49 @@
+@model ContactMessage
+
+<div class="admin-card">
+    <div class="admin-card__header">
+        <div>
+            <h2 class="admin-card__title">@Model.Subject</h2>
+            <span class="admin-badge @(Model.IsRead ? string.Empty : "admin-badge--on")">
+                @(Model.IsRead ? "Read" : "Unread")
+            </span>
+        </div>
+        <div class="admin-actions">
+            <form asp-area="Admin" asp-controller="Messages" asp-action="MarkUnread"
+                  asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Mark as unread</button>
+            </form>
+            <a class="btn btn-sm btn-outline-danger" asp-area="Admin"
+               asp-controller="Messages" asp-action="Delete" asp-route-id="@Model.Id">
+                Delete
+            </a>
+        </div>
+    </div>
+    <div class="admin-card__body">
+        <dl class="admin-message-meta">
+            <div>
+                <dt>From</dt>
+                <dd>@Model.Name</dd>
+            </div>
+            <div>
+                <dt>Email</dt>
+                <dd><a href="mailto:@Model.Email">@Model.Email</a></dd>
+            </div>
+            <div>
+                <dt>Received</dt>
+                <dd>@Model.CreatedAt.ToString("MMMM d, yyyy 'at' HH:mm")</dd>
+            </div>
+        </dl>
+
+        <div class="admin-message-body">@Model.Body</div>
+
+        <div class="admin-form__actions mt-4">
+            <a class="btn btn-brand" href="mailto:@Model.Email?subject=Re: @Uri.EscapeDataString(Model.Subject)">
+                Reply by email
+            </a>
+            <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Messages" asp-action="Index">
+                Back to inbox
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="page-header page-header--compact">
+    <div class="container">
+        <p class="eyebrow">Legal</p>
+        <h1 class="section-title">Privacy policy</h1>
+        <p class="lead-copy mb-0">
+            This portfolio is a personal website. It only collects information you choose to send
+            directly, such as when you email me.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="content-panel">
+            <h2 class="h4">Information I collect</h2>
+            <p>
+                This site does not use advertising trackers. Basic server logs may record technical
+                information such as your IP address, browser type, and requested pages for security
+                and reliability purposes.
+            </p>
+
+            <h2 class="h4 mt-4">How information is used</h2>
+            <p>
+                Any information you send by email is used only to respond to your message. It is not
+                sold or shared with third parties for marketing.
+            </p>
+
+            <h2 class="h4 mt-4">Contact</h2>
+            <p class="mb-0">
+                Questions about this policy can be sent to
+                <a href="mailto:@(ViewData["ContactEmail"] ?? "you@example.com")">@(ViewData["ContactEmail"] ?? "you@example.com")</a>.
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,19 @@
+@model SkillFormViewModel
+
+<form asp-area="Admin" asp-controller="Skills" asp-action="Create" method="post" class="admin-form">
+    <div class="admin-card">
+        <div class="admin-card__header">
+            <h2 class="admin-card__title">Skill details</h2>
+        </div>
+        <div class="admin-card__body">
+            <partial name="_Form" model="Model" />
+        </div>
+    </div>
+
+    <div class="admin-form__actions">
+        <button type="submit" class="btn btn-brand">Create skill</button>
+        <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Skills" asp-action="Index">
+            Cancel
+        </a>
+    </div>
+</form>

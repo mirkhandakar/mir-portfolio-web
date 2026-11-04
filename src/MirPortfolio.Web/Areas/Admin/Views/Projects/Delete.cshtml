@@ -1,0 +1,28 @@
+@model Project
+
+<div class="admin-card admin-danger">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Delete project</h2>
+    </div>
+    <div class="admin-card__body">
+        <p><strong>This action cannot be undone.</strong> The project will be removed from the site immediately.</p>
+
+        <dl class="admin-delete-summary">
+            <dt>Title</dt>
+            <dd>@Model.Title</dd>
+            <dt>Slug</dt>
+            <dd>/projects/@Model.Slug</dd>
+            <dt>Featured</dt>
+            <dd>@(Model.IsFeatured ? "Yes" : "No")</dd>
+        </dl>
+
+        <form asp-area="Admin" asp-controller="Projects" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <div class="admin-form__actions">
+                <button type="submit" class="btn btn-danger">Delete project</button>
+                <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Projects" asp-action="Index">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

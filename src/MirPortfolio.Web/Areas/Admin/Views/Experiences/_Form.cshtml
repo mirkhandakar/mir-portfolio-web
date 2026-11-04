@@ -1,0 +1,48 @@
+@model ExperienceFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="admin-form__grid">
+    <div>
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Organization" class="form-label"></label>
+        <input asp-for="Organization" class="form-control" />
+        <span asp-validation-for="Organization" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" placeholder="Remote, or City, Country" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Type" class="form-label"></label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<ExperienceType>()" class="form-select"></select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="StartDate" class="form-label"></label>
+        <input asp-for="StartDate" type="date" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="EndDate" class="form-label"></label>
+        <input asp-for="EndDate" type="date" class="form-control" />
+        <span class="admin-form__hint">Leave blank for a current role, shown as &ldquo;Present&rdquo;.</span>
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DisplayOrder" class="form-label"></label>
+        <input asp-for="DisplayOrder" class="form-control" type="number" min="0" />
+        <span class="admin-form__hint">Used when entries share the same start date.</span>
+        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+    </div>
+</div>

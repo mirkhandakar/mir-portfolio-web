@@ -1,0 +1,31 @@
+@model Experience
+
+<div class="admin-card admin-danger">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Delete experience</h2>
+    </div>
+    <div class="admin-card__body">
+        <p><strong>This action cannot be undone.</strong> The entry will be removed from the timeline immediately.</p>
+
+        <dl class="admin-delete-summary">
+            <dt>Role</dt>
+            <dd>@Model.Title</dd>
+            <dt>Organization</dt>
+            <dd>@Model.Organization</dd>
+            <dt>Dates</dt>
+            <dd>
+                @Model.StartDate.ToString("MMM yyyy") &ndash;
+                @(Model.EndDate?.ToString("MMM yyyy") ?? "Present")
+            </dd>
+        </dl>
+
+        <form asp-area="Admin" asp-controller="Experiences" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <div class="admin-form__actions">
+                <button type="submit" class="btn btn-danger">Delete experience</button>
+                <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Experiences" asp-action="Index">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

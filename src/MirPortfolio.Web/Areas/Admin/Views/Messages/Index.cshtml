@@ -1,0 +1,88 @@
+@model IReadOnlyList<ContactMessage>
+@{
+    var unreadOnly = ViewData["UnreadOnly"] is true;
+}
+
+<div class="admin-card">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Inbox</h2>
+        <div class="admin-filter-group" role="group" aria-label="Filter messages">
+            <a class="admin-filter @(unreadOnly ? string.Empty : "is-active")"
+               asp-area="Admin" asp-controller="Messages" asp-action="Index">All</a>
+            <a class="admin-filter @(unreadOnly ? "is-active" : string.Empty)"
+               asp-area="Admin" asp-controller="Messages" asp-action="Index" asp-route-filter="unread">
+                Unread
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="admin-empty">
+            <h2>@(unreadOnly ? "No unread messages" : "No messages yet")</h2>
+            <p class="mb-0">
+                @(unreadOnly
+                    ? "You are all caught up."
+                    : "Messages sent through the public contact form will appear here.")
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table admin-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Message</th>
+                        <th scope="col">Received</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"><span class="visually-hidden">Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var message in Model)
+                    {
+                        <tr class="admin-message-row @(message.IsRead ? string.Empty : "is-unread")">
+                            <td>
+                                <div class="admin-message-subject">
+                                    @if (!message.IsRead)
+                                    {
+                                        <span class="admin-unread-dot" aria-hidden="true"></span>
+                                    }
+                                    <a class="admin-table__primary" asp-area="Admin"
+                                       asp-controller="Messages" asp-action="Details" asp-route-id="@message.Id">
+                                        @message.Subject
+                                    </a>
+                                </div>
+                                <span class="admin-table__muted">@message.Name &middot; @message.Email</span>
+                            </td>
+                            <td>@message.CreatedAt.ToString("MMM d, yyyy HH:mm")</td>
+                            <td>
+                                @if (message.IsRead)
+                                {
+                                    <span class="admin-badge">Read</span>
+                                }
+                                else
+                                {
+                                    <span class="admin-badge admin-badge--on">Unread</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="admin-actions">
+                                    <a class="btn btn-sm btn-outline-brand" asp-area="Admin"
+                                       asp-controller="Messages" asp-action="Details" asp-route-id="@message.Id">
+                                        View
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger" asp-area="Admin"
+                                       asp-controller="Messages" asp-action="Delete" asp-route-id="@message.Id">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

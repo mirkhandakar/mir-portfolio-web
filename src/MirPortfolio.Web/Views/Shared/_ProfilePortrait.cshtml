@@ -1,0 +1,18 @@
+@model SiteProfile
+@{
+    var initials = string.Concat(
+        Model.FullName
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Take(2)
+            .Select(part => part[0]));
+}
+<div class="profile-portrait">
+    @if (!string.IsNullOrWhiteSpace(Model.AvatarUrl))
+    {
+        <img src="@Model.AvatarUrl" alt="@Model.FullName" class="profile-portrait__image" />
+    }
+    else
+    {
+        <div class="profile-portrait__fallback" aria-hidden="true">@initials</div>
+    }
+</div>

@@ -1,0 +1,60 @@
+@model ProjectFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="admin-form__grid">
+    <div>
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Slug" class="form-label"></label>
+        <input asp-for="Slug" class="form-control" placeholder="my-project" />
+        <span class="admin-form__hint">Leave blank to generate a unique slug from the title.</span>
+        <span asp-validation-for="Slug" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Summary" class="form-label"></label>
+        <input asp-for="Summary" class="form-control" />
+        <span asp-validation-for="Summary" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+        <span class="admin-form__hint">Plain text. Line breaks are preserved on the project page.</span>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="TechTags" class="form-label"></label>
+        <input asp-for="TechTags" class="form-control" placeholder="ASP.NET Core, SQL Server, Bootstrap" />
+        <span asp-validation-for="TechTags" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="ImageUrl" class="form-label"></label>
+        <input asp-for="ImageUrl" class="form-control" placeholder="/images/projects/my-project.png" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="RepoUrl" class="form-label"></label>
+        <input asp-for="RepoUrl" class="form-control" placeholder="https://github.com/..." />
+        <span asp-validation-for="RepoUrl" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="LiveUrl" class="form-label"></label>
+        <input asp-for="LiveUrl" class="form-control" placeholder="https://..." />
+        <span asp-validation-for="LiveUrl" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DisplayOrder" class="form-label"></label>
+        <input asp-for="DisplayOrder" class="form-control" type="number" min="0" />
+        <span class="admin-form__hint">Lower numbers appear first.</span>
+        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+    </div>
+    <div class="d-flex align-items-end">
+        <div class="form-check admin-check">
+            <input asp-for="IsFeatured" class="form-check-input" />
+            <label asp-for="IsFeatured" class="form-check-label"></label>
+        </div>
+    </div>
+</div>

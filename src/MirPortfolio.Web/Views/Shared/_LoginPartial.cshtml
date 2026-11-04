@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Identity
+@using MirPortfolio.Web.Models
+@inject SignInManager<ApplicationUser> SignInManager
+
+<div class="nav-auth d-flex align-items-center gap-2">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="nav-link nav-auth__link" asp-area="Identity" asp-page="/Account/Manage/Index">Account</a>
+        <form asp-area="Identity" asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+            <button type="submit" class="btn btn-sm btn-outline-brand">Log out</button>
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-sm btn-outline-brand" asp-area="Identity" asp-page="/Account/Login">Admin login</a>
+    }
+</div>

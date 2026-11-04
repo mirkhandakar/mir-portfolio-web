@@ -1,0 +1,29 @@
+@model ContactMessage
+
+<div class="admin-card admin-danger">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Delete message</h2>
+    </div>
+    <div class="admin-card__body">
+        <p><strong>This action cannot be undone.</strong> The message will be permanently removed from the inbox.</p>
+
+        <dl class="admin-delete-summary">
+            <dt>From</dt>
+            <dd>@Model.Name &lt;@Model.Email&gt;</dd>
+            <dt>Subject</dt>
+            <dd>@Model.Subject</dd>
+            <dt>Received</dt>
+            <dd>@Model.CreatedAt.ToString("MMMM d, yyyy 'at' HH:mm")</dd>
+        </dl>
+
+        <form asp-area="Admin" asp-controller="Messages" asp-action="Delete"
+              asp-route-id="@Model.Id" method="post">
+            <div class="admin-form__actions">
+                <button type="submit" class="btn btn-danger">Delete message</button>
+                <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Messages" asp-action="Index">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

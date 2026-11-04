@@ -1,0 +1,114 @@
+@model ContactViewModel
+
+<section class="page-header page-header--compact">
+    <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1 class="section-title">Let's build something together</h1>
+        <p class="lead-copy">
+            Have a role, project, or idea in mind? Send a message and I will get back to you by email.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-7">
+                <div class="content-panel">
+                    @if (TempData["ContactSuccess"] is string success)
+                    {
+                        <div class="alert alert-success" role="status">@success</div>
+                    }
+
+                    <form asp-controller="Contact" asp-action="Index" method="post" class="contact-form">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control" autocomplete="name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" autocomplete="email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label asp-for="Subject" class="form-label"></label>
+                            <input asp-for="Subject" class="form-control" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <label asp-for="Body" class="form-label"></label>
+                            <textarea asp-for="Body" class="form-control" rows="7"></textarea>
+                            <span asp-validation-for="Body" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-honeypot" aria-hidden="true">
+                            <label asp-for="Website">Website</label>
+                            <input asp-for="Website" tabindex="-1" autocomplete="off" />
+                        </div>
+
+                        <div class="contact-form__actions">
+                            <button type="submit" class="btn btn-brand">Send message</button>
+                            <span class="contact-form__note">I usually reply within one or two business days.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <aside class="content-panel contact-aside">
+                    <p class="eyebrow">Direct</p>
+                    <h2 class="contact-aside__title">Prefer email?</h2>
+                    <p class="contact-aside__text">
+                        You can also reach me directly using the details below.
+                    </p>
+
+                    <ul class="contact-aside__list">
+                        <li>
+                            <span>Email</span>
+                            <a href="mailto:@Model.Profile.Email">@Model.Profile.Email</a>
+                        </li>
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.Location))
+                        {
+                            <li>
+                                <span>Location</span>
+                                <strong>@Model.Profile.Location</strong>
+                            </li>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.GitHubUrl))
+                        {
+                            <li>
+                                <span>GitHub</span>
+                                <a href="@Model.Profile.GitHubUrl" target="_blank" rel="noopener noreferrer">@Model.Profile.GitHubUrl</a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.LinkedInUrl))
+                        {
+                            <li>
+                                <span>LinkedIn</span>
+                                <a href="@Model.Profile.LinkedInUrl" target="_blank" rel="noopener noreferrer">@Model.Profile.LinkedInUrl</a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.ResumePath))
+                        {
+                            <li>
+                                <span>Resume</span>
+                                <a asp-controller="Resume" asp-action="Download">Download PDF</a>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,26 @@
+@model Skill
+
+<div class="admin-card admin-danger">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Delete skill</h2>
+    </div>
+    <div class="admin-card__body">
+        <p><strong>This action cannot be undone.</strong> The skill will be removed from the site immediately.</p>
+
+        <dl class="admin-delete-summary">
+            <dt>Skill</dt>
+            <dd>@Model.Name</dd>
+            <dt>Category</dt>
+            <dd>@Model.Category</dd>
+        </dl>
+
+        <form asp-area="Admin" asp-controller="Skills" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <div class="admin-form__actions">
+                <button type="submit" class="btn btn-danger">Delete skill</button>
+                <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Skills" asp-action="Index">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

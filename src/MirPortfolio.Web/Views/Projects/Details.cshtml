@@ -1,0 +1,72 @@
+@model Project
+@{
+    var tags = Model.TechTags?
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        ?? Array.Empty<string>();
+}
+
+<section class="page-header page-header--compact">
+    <div class="container">
+        <a class="back-link" asp-action="Index">&larr; All projects</a>
+        <p class="eyebrow">Case study</p>
+        <h1 class="section-title">@Model.Title</h1>
+        <p class="lead-copy">@Model.Summary</p>
+        @if (!string.IsNullOrWhiteSpace(Model.LiveUrl) || !string.IsNullOrWhiteSpace(Model.RepoUrl))
+        {
+            <div class="hero-actions">
+                @if (!string.IsNullOrWhiteSpace(Model.LiveUrl))
+                {
+                    <a class="btn btn-brand" href="@Model.LiveUrl" target="_blank" rel="noopener noreferrer">
+                        Visit live site
+                    </a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.RepoUrl))
+                {
+                    <a class="btn btn-outline-brand" href="@Model.RepoUrl" target="_blank" rel="noopener noreferrer">
+                        View source
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <article class="content-panel project-detail">
+                    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                    {
+                        <img class="project-detail__image" src="@Model.ImageUrl" alt="@Model.Title screenshot" />
+                    }
+                    <h2 class="project-detail__heading">Overview</h2>
+                    <div class="project-detail__description">@Model.Description</div>
+                </article>
+            </div>
+            <div class="col-lg-4">
+                <aside class="content-panel project-detail__sidebar">
+                    <h2 class="project-detail__heading">Project details</h2>
+                    <dl class="detail-list">
+                        @if (tags.Length > 0)
+                        {
+                            <dt>Technologies</dt>
+                            <dd>
+                                <ul class="tag-list" aria-label="Technologies used">
+                                    @foreach (var tag in tags)
+                                    {
+                                        <li>@tag</li>
+                                    }
+                                </ul>
+                            </dd>
+                        }
+                        <dt>Status</dt>
+                        <dd>@(Model.IsFeatured ? "Featured project" : "Published")</dd>
+                        <dt>Last updated</dt>
+                        <dd>@Model.UpdatedAt.ToString("MMMM yyyy")</dd>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>

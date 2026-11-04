@@ -1,0 +1,91 @@
+@inject IContactMessageService ContactMessageService
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+    string NavClass(string controller) =>
+        string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase)
+            ? "is-active"
+            : string.Empty;
+    var pageTitle = ViewData["Title"]?.ToString() ?? "Admin";
+    var sectionLabel = ViewData["Section"]?.ToString() ?? "Portfolio";
+    var unreadMessageCount = await ContactMessageService.GetUnreadCountAsync();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@pageTitle — Portfolio Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body class="admin-body">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <a class="admin-brand" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                <span class="admin-brand__mark">MP</span>
+                <span class="admin-brand__text">
+                    <strong>Portfolio</strong>
+                    <small>Admin</small>
+                </span>
+            </a>
+
+            <nav class="admin-nav" aria-label="Admin navigation">
+                <a class="admin-nav__link @NavClass("Dashboard")"
+                   asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                <a class="admin-nav__link @NavClass("Projects")"
+                   asp-area="Admin" asp-controller="Projects" asp-action="Index">Projects</a>
+                <a class="admin-nav__link @NavClass("Skills")"
+                   asp-area="Admin" asp-controller="Skills" asp-action="Index">Skills</a>
+                <a class="admin-nav__link @NavClass("Experiences")"
+                   asp-area="Admin" asp-controller="Experiences" asp-action="Index">Experience</a>
+                <a class="admin-nav__link @NavClass("Messages")"
+                   asp-area="Admin" asp-controller="Messages" asp-action="Index">
+                    Messages
+                    @if (unreadMessageCount > 0)
+                    {
+                        <span class="admin-nav__count">@unreadMessageCount</span>
+                    }
+                </a>
+                <a class="admin-nav__link @NavClass("Settings")"
+                   asp-area="Admin" asp-controller="Settings" asp-action="Index">Settings</a>
+            </nav>
+
+            <div class="admin-sidebar__footer">
+                <a asp-area="" asp-controller="Home" asp-action="Index" target="_blank" rel="noopener noreferrer">
+                    View site
+                </a>
+                <form asp-area="Identity" asp-page="/Account/Logout"
+                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                    <button type="submit" class="admin-link-button">Log out</button>
+                </form>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <div>
+                    <p class="admin-eyebrow">@sectionLabel</p>
+                    <h1>@pageTitle</h1>
+                </div>
+                <p class="admin-user">@User.Identity?.Name</p>
+            </header>
+
+            <div class="admin-content">
+                @if (TempData["Success"] is string success)
+                {
+                    <div class="alert alert-success admin-alert" role="status">@success</div>
+                }
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

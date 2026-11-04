@@ -1,0 +1,58 @@
+@model AdminDashboardStats
+
+<div class="admin-stat-grid">
+    <a class="admin-stat" asp-area="Admin" asp-controller="Projects" asp-action="Index">
+        <span class="admin-stat__value">@Model.ProjectCount</span>
+        <span class="admin-stat__label">Projects</span>
+        <span class="admin-stat__note">@Model.FeaturedProjectCount featured on the home page</span>
+    </a>
+    <a class="admin-stat" asp-area="Admin" asp-controller="Skills" asp-action="Index">
+        <span class="admin-stat__value">@Model.SkillCount</span>
+        <span class="admin-stat__label">Skills</span>
+        <span class="admin-stat__note">Shown on the home and about pages</span>
+    </a>
+    <a class="admin-stat" asp-area="Admin" asp-controller="Experiences" asp-action="Index">
+        <span class="admin-stat__value">@Model.ExperienceCount</span>
+        <span class="admin-stat__label">Experience</span>
+        <span class="admin-stat__note">Work and education timeline entries</span>
+    </a>
+    <div class="admin-stat">
+        <span class="admin-stat__value">@Model.BlogPostCount</span>
+        <span class="admin-stat__label">Blog posts</span>
+        <span class="admin-stat__note">Management arrives in Milestone 6</span>
+    </div>
+    <a class="admin-stat" asp-area="Admin" asp-controller="Messages" asp-action="Index" asp-route-filter="unread">
+        <span class="admin-stat__value">@Model.UnreadMessageCount</span>
+        <span class="admin-stat__label">Unread messages</span>
+        <span class="admin-stat__note">Messages awaiting a reply</span>
+    </a>
+</div>
+
+<div class="admin-card">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Quick actions</h2>
+    </div>
+    <div class="admin-card__body">
+        <div class="admin-quick-actions">
+            <a class="btn btn-brand" asp-area="Admin" asp-controller="Projects" asp-action="Create">
+                New project
+            </a>
+            <a class="btn btn-outline-brand" asp-area="Admin" asp-controller="Skills" asp-action="Create">
+                New skill
+            </a>
+            <a class="btn btn-outline-brand" asp-area="Admin" asp-controller="Experiences" asp-action="Create">
+                New experience
+            </a>
+            <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Messages" asp-action="Index">
+                Open inbox
+            </a>
+            <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Settings" asp-action="Index">
+                Site settings
+            </a>
+            <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index"
+               target="_blank" rel="noopener noreferrer">
+                View site
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,185 @@
+﻿@model HomeViewModel
+@{
+    var intro = Model.Profile.Bio.Length > 220
+        ? $"{Model.Profile.Bio[..220].TrimEnd()}…"
+        : Model.Profile.Bio;
+}
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <p class="eyebrow">Hello, I'm</p>
+                <h1 class="hero-title">@Model.Profile.FullName</h1>
+                <p class="hero-headline">@Model.Profile.Headline</p>
+                <p class="hero-copy">@intro</p>
+                <div class="hero-actions">
+                    <a class="btn btn-brand btn-lg" asp-controller="Projects" asp-action="Index">
+                        View my work
+                    </a>
+                    <a class="btn btn-outline-brand btn-lg" href="mailto:@Model.Profile.Email">Get in touch</a>
+                    @if (!string.IsNullOrWhiteSpace(Model.Profile.ResumePath))
+                    {
+                        <a class="btn btn-outline-brand btn-lg" asp-controller="Resume" asp-action="Download">
+                            Download resume
+                        </a>
+                    }
+                </div>
+                <div class="hero-meta">
+                    @if (!string.IsNullOrWhiteSpace(Model.Profile.Location))
+                    {
+                        <span>@Model.Profile.Location</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.Profile.GitHubUrl))
+                    {
+                        <a href="@Model.Profile.GitHubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.Profile.LinkedInUrl))
+                    {
+                        <a href="@Model.Profile.LinkedInUrl" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-5 d-flex justify-content-lg-end">
+                <partial name="_ProfilePortrait" model="Model.Profile" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--muted" id="about-preview">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-4">
+                <p class="eyebrow">About</p>
+                <h2 class="section-title">A little about me</h2>
+            </div>
+            <div class="col-lg-8">
+                <p class="lead-copy">@Model.Profile.Bio</p>
+                <a class="link-arrow" asp-controller="Home" asp-action="About">More about me &rarr;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="projects">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Selected work</p>
+                <h2 class="section-title">Featured projects</h2>
+            </div>
+            <a class="link-arrow" asp-controller="Projects" asp-action="Index">All projects &rarr;</a>
+        </div>
+
+        @if (Model.FeaturedProjects.Count == 0)
+        {
+            <p class="empty-state">Projects will appear here once they are added in the admin area.</p>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var project in Model.FeaturedProjects)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <partial name="_ProjectCard" model="project" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<section class="section section--muted" id="skills">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Toolkit</p>
+                <h2 class="section-title">Skills &amp; tools</h2>
+            </div>
+            <a class="link-arrow" asp-controller="Home" asp-action="About" asp-fragment="skills">See all skills &rarr;</a>
+        </div>
+
+        @if (Model.Skills.Count == 0)
+        {
+            <p class="empty-state">Skills will appear here once they are added in the admin area.</p>
+        }
+        else
+        {
+            <div class="skill-groups">
+                @foreach (var group in Model.Skills.GroupBy(skill => skill.Category))
+                {
+                    <div class="skill-group">
+                        <h3 class="skill-group__title">@group.Key</h3>
+                        <div class="skill-cloud">
+                            @foreach (var skill in group)
+                            {
+                                <span class="skill-pill">@skill.Name</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<section class="section" id="experience">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <p class="eyebrow">Background</p>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <a class="link-arrow" asp-controller="Home" asp-action="About" asp-fragment="experience">Full history &rarr;</a>
+        </div>
+
+        @if (Model.Experiences.Count == 0)
+        {
+            <p class="empty-state">Experience entries will appear here once they are added.</p>
+        }
+        else
+        {
+            <ul class="timeline">
+                @foreach (var experience in Model.Experiences.Take(2))
+                {
+                    <partial name="_ExperienceItem" model="experience" />
+                }
+            </ul>
+        }
+    </div>
+</section>
+
+<section class="section section--accent" id="contact">
+    <div class="container">
+        <div class="contact-card">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <p class="eyebrow">Contact</p>
+                    <h2 class="section-title mb-3">Let's build something together</h2>
+                    <p class="lead-copy mb-0">
+                        I'm open to new opportunities and interesting projects. Send a message and I'll reply by email.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-actions">
+                        <a class="btn btn-brand" asp-controller="Contact" asp-action="Index">Send a message</a>
+                        <a class="btn btn-outline-brand" href="mailto:@Model.Profile.Email">Email me</a>
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.ResumePath))
+                        {
+                            <a class="btn btn-outline-brand" asp-controller="Resume" asp-action="Download">Resume</a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.GitHubUrl))
+                        {
+                            <a class="btn btn-outline-brand" href="@Model.Profile.GitHubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Profile.LinkedInUrl))
+                        {
+                            <a class="btn btn-outline-brand" href="@Model.Profile.LinkedInUrl" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

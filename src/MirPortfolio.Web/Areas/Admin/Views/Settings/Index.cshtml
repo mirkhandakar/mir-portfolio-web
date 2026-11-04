@@ -1,0 +1,52 @@
+@model SiteProfileFormViewModel
+
+<form asp-area="Admin" asp-controller="Settings" asp-action="Index" method="post"
+      enctype="multipart/form-data" class="admin-form">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="admin-card">
+        <div class="admin-card__header">
+            <h2 class="admin-card__title">Profile details</h2>
+        </div>
+        <div class="admin-card__body">
+            <partial name="_ProfileForm" model="Model" />
+        </div>
+    </div>
+
+    <div class="admin-card">
+        <div class="admin-card__header">
+            <h2 class="admin-card__title">Resume</h2>
+        </div>
+        <div class="admin-card__body">
+            @if (Model.HasResume)
+            {
+                <div class="admin-resume-status">
+                    <span>Current file: <strong>@Model.ResumeFileName</strong></span>
+                    <a asp-area="" asp-controller="Resume" asp-action="Download"
+                       target="_blank" rel="noopener noreferrer">Download</a>
+                </div>
+                <div class="form-check admin-check mb-3">
+                    <input asp-for="RemoveResume" class="form-check-input" />
+                    <label asp-for="RemoveResume" class="form-check-label"></label>
+                </div>
+            }
+            else
+            {
+                <p class="admin-form__hint mb-3">No resume is uploaded yet. The public resume link stays hidden until one is added.</p>
+            }
+
+            <label asp-for="ResumeFile" class="form-label"></label>
+            <input asp-for="ResumeFile" type="file" accept="application/pdf,.pdf" class="form-control" />
+            <span class="admin-form__hint">PDF only, up to 5 MB. Uploading a new file replaces the current resume.</span>
+            <span asp-validation-for="ResumeFile" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="admin-form__actions">
+        <button type="submit" class="btn btn-brand">Save settings</button>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Home" asp-action="Index"
+           target="_blank" rel="noopener noreferrer">
+            View site
+        </a>
+    </div>
+</form>

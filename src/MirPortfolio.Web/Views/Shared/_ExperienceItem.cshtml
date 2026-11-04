@@ -1,0 +1,20 @@
+@model Experience
+@{
+    var start = Model.StartDate.ToString("MMM yyyy");
+    var end = Model.EndDate?.ToString("MMM yyyy") ?? "Present";
+    var location = string.IsNullOrWhiteSpace(Model.Location)
+        ? Model.Organization
+        : $"{Model.Organization} · {Model.Location}";
+}
+<li class="timeline-item">
+    <span class="timeline-dot" aria-hidden="true"></span>
+    <div class="timeline-content">
+        <div class="timeline-heading">
+            <h3 class="timeline-title">@Model.Title</h3>
+            <span class="timeline-date">@start — @end</span>
+        </div>
+        <p class="timeline-org">@location</p>
+        <p class="timeline-description">@Model.Description</p>
+        <span class="timeline-badge">@Model.Type</span>
+    </div>
+</li>

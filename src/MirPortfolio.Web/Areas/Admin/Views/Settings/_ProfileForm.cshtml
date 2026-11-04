@@ -1,0 +1,48 @@
+@model SiteProfileFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="admin-form__grid">
+    <div>
+        <label asp-for="FullName" class="form-label"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Headline" class="form-label"></label>
+        <input asp-for="Headline" class="form-control" placeholder="Software Developer" />
+        <span asp-validation-for="Headline" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Bio" class="form-label"></label>
+        <textarea asp-for="Bio" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Bio" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" placeholder="City, Country" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="AvatarUrl" class="form-label"></label>
+        <input asp-for="AvatarUrl" class="form-control" placeholder="/images/avatar.png" />
+        <span class="admin-form__hint">Absolute URL or a path relative to the site root.</span>
+        <span asp-validation-for="AvatarUrl" class="text-danger"></span>
+    </div>
+    <div></div>
+    <div>
+        <label asp-for="GitHubUrl" class="form-label"></label>
+        <input asp-for="GitHubUrl" class="form-control" placeholder="https://github.com/..." />
+        <span asp-validation-for="GitHubUrl" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="LinkedInUrl" class="form-label"></label>
+        <input asp-for="LinkedInUrl" class="form-control" placeholder="https://www.linkedin.com/in/..." />
+        <span asp-validation-for="LinkedInUrl" class="text-danger"></span>
+    </div>
+</div>

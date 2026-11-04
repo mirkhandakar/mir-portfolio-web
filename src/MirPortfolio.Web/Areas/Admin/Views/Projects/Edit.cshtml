@@ -1,0 +1,22 @@
+@model ProjectFormViewModel
+
+<form asp-area="Admin" asp-controller="Projects" asp-action="Edit" asp-route-id="@Model.Id"
+      method="post" class="admin-form">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="admin-card">
+        <div class="admin-card__header">
+            <h2 class="admin-card__title">Project details</h2>
+        </div>
+        <div class="admin-card__body">
+            <partial name="_Form" model="Model" />
+        </div>
+    </div>
+
+    <div class="admin-form__actions">
+        <button type="submit" class="btn btn-brand">Save changes</button>
+        <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Projects" asp-action="Index">
+            Cancel
+        </a>
+    </div>
+</form>
