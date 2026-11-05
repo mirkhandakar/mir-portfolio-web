@@ -76,7 +76,8 @@ Server=(localdb)\MSSQLLocalDB;Database=MirPortfolio;Trusted_Connection=True;Mult
 - **Custom CSS** for a clean, light, professional theme.
 - **Vanilla JavaScript** for the mobile nav and small interactions; no SPA framework.
 - **Accessibility** — semantic HTML, labels, visible focus, AA contrast targets.
-- **SEO** — per-page metadata, Open Graph tags, `sitemap.xml`, `robots.txt`.
+- **SEO** — per-page metadata, Open Graph tags, canonical links,
+  `sitemap.xml` via `SitemapService`, and `robots.txt`.
 
 ---
 
@@ -117,7 +118,9 @@ dotnet user-secrets set "SeedAdmin:Password" "<strong password>" --project src/M
 
 ## 6. Testing & Quality
 
-- **xUnit** for unit tests of services and validation logic (M7).
+- **xUnit** for unit tests of services and validation logic, in
+  `tests/MirPortfolio.Web.Tests`.
+- **EF Core InMemory** for lightweight service tests without a real database.
 - Integration tests for admin CRUD and contact submission (optional, later).
 - `dotnet build` warnings treated as signals; keep the build clean.
 - Manual smoke test per milestone: public pages, admin login, CRUD round-trip.
@@ -129,8 +132,10 @@ dotnet user-secrets set "SeedAdmin:Password" "<strong password>" --project src/M
 - **Git** (repository already initialized).
 - Convention: feature work per milestone, small commits with clear messages.
 - `.gitignore` excludes `bin/`, `obj/`, user secrets, and local databases.
-- Hosting target **undecided**; app stays standard ASP.NET Core with no
-  host-specific dependencies. Deployment notes added in Milestone 8.
+- Hosting target stays **host-agnostic**; a simple filesystem publish profile is
+  provided in `src/MirPortfolio.Web/Properties/PublishProfiles/FolderProfile.pubxml`.
+- See [DEPLOYMENT.md](DEPLOYMENT.md) for publish, production configuration, and
+  migration checks.
 
 ---
 

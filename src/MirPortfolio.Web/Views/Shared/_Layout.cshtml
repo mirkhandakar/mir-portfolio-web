@@ -26,9 +26,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@documentTitle" />
     <meta property="og:description" content="@metaDescription" />
+    <meta property="og:site_name" content="@siteProfile.FullName" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MirPortfolio.Web.styles.css" asp-append-version="true" />
+    <link rel="canonical" href="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
 </head>
 <body class="app-shell">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -51,6 +55,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="@NavClass("Projects", "Index")" asp-controller="Projects" asp-action="Index">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@NavClass("Blog", "Index")" asp-controller="Blog" asp-action="Index">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="@NavClass("Contact", "Index")" asp-controller="Contact" asp-action="Index">Contact</a>

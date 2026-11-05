@@ -67,7 +67,7 @@ mir-portfolio-web/
 │       └── appsettings*.json
 ├── tests/
 │   └── MirPortfolio.Web.Tests/      # xUnit (M7)
-├── mir-portfolio-web.sln
+├── mir-portfolio-web.slnx
 └── README.md
 ```
 
@@ -145,7 +145,7 @@ POST /contact → honeypot check → rate limiter → validation
 | Security | HTTPS + HSTS, antiforgery tokens, authorization policies, rate limiting, sanitized HTML, secrets via user-secrets |
 | Logging | Built-in `ILogger<T>`; no PII or secrets logged |
 | Configuration | `appsettings.json` for non-secrets; environment/user-secrets for secrets |
-| SEO | Per-page title/meta/OpenGraph via a shared ViewModel; `sitemap.xml`, `robots.txt` |
+| SEO | Per-page title/meta/OpenGraph in the shared layout; `sitemap.xml` via `ISitemapService`; `robots.txt` |
 | Accessibility | Semantic landmarks, labelled inputs, focus states, WCAG 2.1 AA contrast |
 | File uploads | Extension + size allow-list; unique stored names; serve with download disposition for resume |
 
@@ -173,7 +173,7 @@ POST /contact → honeypot check → rate limiter → validation
 | Content authoring | Admin CRUD + Markdown | Editable without redeploy; no CMS overhead |
 | Contact | Persist to DB (email optional) | No external provider required for MVP |
 | Frontend | Razor + Bootstrap, minimal JS | Fast, accessible, low maintenance |
-| Deployment | Undecided; standard ASP.NET Core | Keeps hosting options open |
+| Deployment | Filesystem publish via `FolderProfile.pubxml`; production config supplied by environment variables | Keeps hosting options open while providing a deployable baseline |
 
 ---
 

@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Page not found";
+    ViewData["MetaDescription"] = "The page you were looking for could not be found.";
+}
+
+<section class="page-header page-header--compact">
+    <div class="container">
+        <p class="eyebrow">404</p>
+        <h1 class="section-title">Page not found</h1>
+        <p class="lead-copy">
+            The page you are looking for may have moved or no longer exist.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-brand" asp-controller="Home" asp-action="Index">Back to home</a>
+            <a class="btn btn-outline-brand" asp-controller="Projects" asp-action="Index">View projects</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+@model BlogPost
+
+<div class="admin-card admin-danger">
+    <div class="admin-card__header">
+        <h2 class="admin-card__title">Delete blog post</h2>
+    </div>
+    <div class="admin-card__body">
+        <p><strong>This action cannot be undone.</strong> The post will be removed from the public blog.</p>
+
+        <dl class="admin-delete-summary">
+            <dt>Title</dt>
+            <dd>@Model.Title</dd>
+            <dt>Slug</dt>
+            <dd>/blog/@Model.Slug</dd>
+            <dt>Status</dt>
+            <dd>@(Model.IsPublished ? "Published" : "Draft")</dd>
+            <dt>Published</dt>
+            <dd>@(Model.PublishedAt?.ToString("MMMM d, yyyy") ?? "—")</dd>
+        </dl>
+
+        <form asp-area="Admin" asp-controller="Posts" asp-action="Delete"
+              asp-route-id="@Model.Id" method="post">
+            <div class="admin-form__actions">
+                <button type="submit" class="btn btn-danger">Delete post</button>
+                <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Posts" asp-action="Index">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

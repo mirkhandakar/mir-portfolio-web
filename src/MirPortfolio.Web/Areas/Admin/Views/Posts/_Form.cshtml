@@ -1,0 +1,45 @@
+@model BlogPostFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="admin-form__grid">
+    <div>
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Slug" class="form-label"></label>
+        <input asp-for="Slug" class="form-control" placeholder="building-an-aspnet-core-portfolio" />
+        <span class="admin-form__hint">Leave blank to generate a unique slug from the title.</span>
+        <span asp-validation-for="Slug" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Excerpt" class="form-label"></label>
+        <input asp-for="Excerpt" class="form-control" />
+        <span class="admin-form__hint">Shown on the blog list and meta description.</span>
+        <span asp-validation-for="Excerpt" class="text-danger"></span>
+    </div>
+    <div class="is-full">
+        <label asp-for="Body" class="form-label"></label>
+        <textarea asp-for="Body" class="form-control" rows="10"></textarea>
+        <span class="admin-form__hint">Markdown is supported. Rendered HTML is sanitized before display.</span>
+        <span asp-validation-for="Body" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CoverImageUrl" class="form-label"></label>
+        <input asp-for="CoverImageUrl" class="form-control" placeholder="/images/blog/my-post.png" />
+        <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Tags" class="form-label"></label>
+        <input asp-for="Tags" class="form-control" placeholder="ASP.NET Core, EF Core" />
+        <span asp-validation-for="Tags" class="text-danger"></span>
+    </div>
+    <div class="d-flex align-items-end">
+        <div class="form-check admin-check">
+            <input asp-for="IsPublished" class="form-check-input" />
+            <label asp-for="IsPublished" class="form-check-label"></label>
+        </div>
+    </div>
+</div>

@@ -16,11 +16,11 @@
         <span class="admin-stat__label">Experience</span>
         <span class="admin-stat__note">Work and education timeline entries</span>
     </a>
-    <div class="admin-stat">
+    <a class="admin-stat" asp-area="Admin" asp-controller="Posts" asp-action="Index">
         <span class="admin-stat__value">@Model.BlogPostCount</span>
         <span class="admin-stat__label">Blog posts</span>
-        <span class="admin-stat__note">Management arrives in Milestone 6</span>
-    </div>
+        <span class="admin-stat__note">Drafts and published articles</span>
+    </a>
     <a class="admin-stat" asp-area="Admin" asp-controller="Messages" asp-action="Index" asp-route-filter="unread">
         <span class="admin-stat__value">@Model.UnreadMessageCount</span>
         <span class="admin-stat__label">Unread messages</span>

@@ -1,0 +1,42 @@
+@model BlogPost
+@{
+    var tags = Model.Tags?
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        ?? Array.Empty<string>();
+    var publishedDate = Model.PublishedAt ?? Model.CreatedAt;
+}
+
+<article class="blog-card">
+    <a class="blog-card__media" asp-controller="Blog" asp-action="Details" asp-route-slug="@Model.Slug"
+       aria-hidden="true" tabindex="-1">
+        @if (!string.IsNullOrWhiteSpace(Model.CoverImageUrl))
+        {
+            <img src="@Model.CoverImageUrl" alt="" />
+        }
+        else
+        {
+            <span>@Model.Title</span>
+        }
+    </a>
+    <div class="blog-card__body">
+        <time class="blog-card__date" datetime="@publishedDate.ToString("yyyy-MM-dd")">
+            @publishedDate.ToString("MMMM d, yyyy")
+        </time>
+        <h3 class="blog-card__title">
+            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@Model.Slug">@Model.Title</a>
+        </h3>
+        <p class="blog-card__summary">@Model.Excerpt</p>
+        @if (tags.Length > 0)
+        {
+            <ul class="tag-list" aria-label="Post tags">
+                @foreach (var tag in tags)
+                {
+                    <li>@tag</li>
+                }
+            </ul>
+        }
+        <div class="blog-card__link">
+            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@Model.Slug">Read post &rarr;</a>
+        </div>
+    </div>
+</article>

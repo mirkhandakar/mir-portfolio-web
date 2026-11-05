@@ -1,0 +1,32 @@
+@model IReadOnlyList<BlogPost>
+
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">Writing</p>
+        <h1 class="section-title">Blog</h1>
+        <p class="lead-copy">
+            Notes on building software with ASP.NET Core, testing habits, architecture decisions,
+            and lessons learned along the way.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        @if (Model.Count == 0)
+        {
+            <p class="empty-state">No posts have been published yet. Published posts will appear here.</p>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var post in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <partial name="_BlogCard" model="post" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

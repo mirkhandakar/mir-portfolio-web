@@ -1,0 +1,25 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Something went wrong";
+    ViewData["MetaDescription"] = "An unexpected error occurred. Please try again.";
+}
+
+<section class="page-header page-header--compact">
+    <div class="container">
+        <p class="eyebrow">500</p>
+        <h1 class="section-title">Something went wrong</h1>
+        <p class="lead-copy">
+            An unexpected problem occurred. Please try again later.
+        </p>
+        @if (Model.ShowRequestId)
+        {
+            <p class="text-muted small mb-0">
+                <strong>Reference:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+        <div class="hero-actions mt-3">
+            <a class="btn btn-brand" asp-controller="Home" asp-action="Index">Back to home</a>
+            <a class="btn btn-outline-brand" asp-controller="Contact" asp-action="Index">Contact me</a>
+        </div>
+    </div>
+</section>

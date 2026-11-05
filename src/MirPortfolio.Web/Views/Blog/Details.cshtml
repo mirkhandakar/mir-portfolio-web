@@ -1,0 +1,71 @@
+@model BlogPostDetailViewModel
+@{
+    var tags = Model.Post.Tags?
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        ?? Array.Empty<string>();
+    var publishedDate = Model.Post.PublishedAt ?? Model.Post.CreatedAt;
+}
+
+<article>
+    <section class="page-header page-header--compact">
+        <div class="container">
+            <a class="back-link" asp-controller="Blog" asp-action="Index">&larr; All posts</a>
+            <p class="eyebrow">Blog</p>
+            <h1 class="section-title">@Model.Post.Title</h1>
+            <p class="lead-copy">@Model.Post.Excerpt</p>
+            <p class="blog-post__meta">
+                <time datetime="@publishedDate.ToString("yyyy-MM-dd")">
+                    @publishedDate.ToString("MMMM d, yyyy")
+                </time>
+                @if (tags.Length > 0)
+                {
+                    <span aria-hidden="true">&middot;</span>
+                    <span>@string.Join(", ", tags)</span>
+                }
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="content-panel blog-post">
+                        @if (!string.IsNullOrWhiteSpace(Model.Post.CoverImageUrl))
+                        {
+                            <img class="blog-post__cover" src="@Model.Post.CoverImageUrl"
+                                 alt="@Model.Post.Title cover" />
+                        }
+                        <div class="blog-post__body">@Html.Raw(Model.RenderedBody)</div>
+                    </div>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="content-panel blog-post__sidebar">
+                        <h2>About this post</h2>
+                        <p>@Model.Post.Excerpt</p>
+                        @if (tags.Length > 0)
+                        {
+                            <h3>Topics</h3>
+                            <ul class="tag-list" aria-label="Post topics">
+                                @foreach (var tag in tags)
+                                {
+                                    <li>@tag</li>
+                                }
+                            </ul>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Post.CoverImageUrl))
+                        {
+                            <p class="blog-post__cover-url">
+                                <span class="visually-hidden">Cover image:</span>
+                                <a href="@Model.Post.CoverImageUrl" target="_blank" rel="noopener noreferrer">
+                                    View cover image
+                                </a>
+                            </p>
+                        }
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+</article>

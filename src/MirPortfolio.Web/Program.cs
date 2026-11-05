@@ -43,7 +43,10 @@ builder.Services.AddScoped<IExperienceService, ExperienceService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IResumeStorageService, ResumeStorageService>();
 builder.Services.AddScoped<IContactMessageService, ContactMessageService>();
+builder.Services.AddScoped<IBlogPostService, BlogPostService>();
+builder.Services.AddSingleton<IMarkdownSanitizer, MarkdownSanitizer>();
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
+builder.Services.AddScoped<ISitemapService, SitemapService>();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -79,12 +82,13 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error?statusCode=500");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
 app.UseAuthentication();
 app.UseAuthorization();

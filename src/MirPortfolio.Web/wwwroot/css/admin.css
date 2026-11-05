@@ -262,6 +262,11 @@
   color: var(--accent-strong);
 }
 
+.admin-badge--muted {
+  background: var(--surface-muted);
+  color: var(--muted-strong);
+}
+
 .admin-filter-group {
   display: inline-flex;
   gap: 0.25rem;
