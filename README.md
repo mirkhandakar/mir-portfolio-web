@@ -14,6 +14,7 @@ and contact messages.
 - [Testing](Docs/TESTING.md)
 - [Security](Docs/SECURITY.md)
 - [Deployment](Docs/DEPLOYMENT.md)
+- [AI Workflow](Docs/AI-WORKFLOW.md)
 - [Changelog](Docs/CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)
 - [AI agent notes](AGENTS.md)

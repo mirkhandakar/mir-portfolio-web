@@ -21,6 +21,8 @@ Key docs:
 - `Docs/OPERATIONS.md` — run/build/migration commands and troubleshooting.
 - `Docs/TESTING.md` — smoke-testing approach.
 - `Docs/SECURITY.md` — security posture and controls.
+- `Docs/DEPLOYMENT.md` — publish, configuration, and migration notes.
+- `Docs/AI-WORKFLOW.md` — collaboration loop for humans + AI agents.
 - `Docs/CHANGELOG.md` — milestone history.
 - `CONTRIBUTING.md` — repo conventions.
 - `README.md` — practical quickstart.
@@ -80,8 +82,8 @@ Key docs:
 
 - The project follows `PRD.md` milestones. Complete one milestone at a time and
   end with build + smoke tests.
-- Milestone 7 is likely to add SEO/accessibility polish plus automated tests.
-- Milestone 8 is deployment configuration documentation.
+- All PRD milestones (0–8) are complete. New functional work follows the same
+  loop: PRD acceptance criteria first, then implement, verify, and update docs.
 
 ### 7. Smoke tests
 

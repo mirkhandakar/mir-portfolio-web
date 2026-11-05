@@ -1,0 +1,31 @@
+How to run my project? what is admin email and password?
++ Thought: 764ms
+How to run
+From the repo root:
+# 1. Build
+dotnet build
+
+# 2. Configure local secrets (first time only)
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=(localdb)\MSSQLLocalDB;Database=MirPortfolio;Trusted_Connection=True;MultipleActiveResultSets=true" --project src/MirPortfolio.Web
+dotnet user-secrets set "SeedAdmin:Email" "admin@mirportfolio.local" --project src/MirPortfolio.Web
+dotnet user-secrets set "SeedAdmin:Password" "<strong-password>" --project src/MirPortfolio.Web
+
+# 3. Run
+dotnet run --project src/MirPortfolio.Web --launch-profile http
+The site starts at http://localhost:5110 — and in Development, pending migrations + seed data (including the admin user) are applied automatically at startup.
+Admin email & password
+First, an important security point: I can't tell you the actual password, and I shouldn't — it lives only in your machine's user-secrets store, never in source or docs. But it's easy to see (and change) yourself:
+View what's currently configured:
+dotnet user-secrets list --project src/MirPortfolio.Web
+This prints all stored values on your machine — the SeedAdmin:Email and SeedAdmin:Password entries there are exactly what the seeded admin uses.
+Defaults as configured in your setup:
+- Email: admin@mirportfolio.local (if you used the command above as-is)
+- Password: whatever <strong-password> value you set — check it via the list command above.
+Change password if needed:
+dotnet user-secrets set "SeedAdmin:Password" "NewStrongPassword123!" --project src/MirPortfolio.Web
+Then restart the app so the seed logic can apply it.
+Login & admin
+- Login page: http://localhost:5110/Identity/Account/Login
+- Admin area: http://localhost:5110/admin (requires the Admin role)
+- No public registration — admin account comes only from seeding.
+Prerequisites if you hit trouble: .NET 10 SDK, SQL Server LocalDB installed, and dotnet-ef tool (dotnet tool install --global dotnet-ef). Full troubleshooting commands are in Docs/OPERATIONS.md.

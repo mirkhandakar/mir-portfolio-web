@@ -20,7 +20,8 @@ Small conventions so this repo stays readable and testable.
    - `feat: blog list and detail pages`
    - `fix: unique blog slug handling`
    - `chore: update operations doc`
-4. Do not commit generated binaries. These include:
+4. For AI collaboration, follow `Docs/AI-WORKFLOW.md`.
+5. Do not commit generated binaries. These include:
    - `bin/`
    - `obj/`
    - `wwwroot/resume/*.pdf`

@@ -8,6 +8,9 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- `Docs/AI-WORKFLOW.md` documenting the collaboration loop for humans and AI
+  agents: plan → approve → implement → verify → review → commit, plus reading
+  order by task type and session hygiene.
 - Deployment prep:
   - generic filesystem publish profile at
     `src/MirPortfolio.Web/Properties/PublishProfiles/FolderProfile.pubxml`;
